@@ -19,8 +19,24 @@ jobs:
         run: |
           wget https://github.com/kivikakk/comrak/releases/download/v0.52.0/comrak-0.52.0-x86_64-unknown-linux-musl -O comrak
           chmod +x comrak
-          ls
-      - name: Check
+      - name: Compile
         run: |
-          ./comrak --version
+          ./comrak --header-id-prefix link- -o siyu.html siyu.md
+          sed -e '/<!--Content-->/ { r siyu.html' -e 'd' -e '}' index.html > output.html
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: "./output.html"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5
+
           
