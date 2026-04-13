@@ -22,11 +22,12 @@ jobs:
       - name: Compile
         run: |
           ./comrak --header-id-prefix link- -o siyu.html siyu.md
-          sed -e '/<!--Content-->/ { r siyu.html' -e 'd' -e '}' index.html > output.html
+          mkdir build
+          sed -e '/<!--Content-->/ { r siyu.html' -e 'd' -e '}' index.html > build/index.html
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v4
         with:
-          path: "./output.html"
+          path: "/build"
   deploy:
     needs: build
     runs-on: ubuntu-latest
