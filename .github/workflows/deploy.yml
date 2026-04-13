@@ -19,8 +19,8 @@ jobs:
         uses: actions/checkout@v6
       - name: Update apt and Install Comrak
         run: |
-          pacman -Syu --no-confirm
-          pacman -S --no-confirm comrak
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm comrak
       - name: Check
         run: comrak --version || echo "Not found"
   deploy:
