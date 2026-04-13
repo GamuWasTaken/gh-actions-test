@@ -11,14 +11,16 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: 
+      image: archlinux:latest
     timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Update apt and Install Comrak
         run: |
-          sudo apt-get update
-          sudo apt-get install -y comrak
+          pacman -Syu --no-confirm
+          pacman -S --no-confirm comrak
       - name: Check
         run: comrak --version || echo "Not found"
   deploy:
