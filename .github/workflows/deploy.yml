@@ -19,16 +19,4 @@ jobs:
         run: |
           wget -o comrak https://github.com/kivikakk/comrak/releases/download/v0.52.0/comrak-0.52.0-x86_64-unknown-linux-musl
           chmod +x comrak
-      - name: Check
-        run: comrak --version || echo "Not found"
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v5
+          comrak --version
