@@ -21,9 +21,8 @@ jobs:
           chmod +x comrak
       - name: Compile
         run: |
-          ./comrak --header-id-prefix link- -o siyu.html siyu.md
           mkdir build
-          sed -e '/<!--Content-->/ { r siyu.html' -e 'd' -e '}' index.html > build/index.html
+          perl -pe 's/<!--bases.md-->/`./comrak --header-id-prefix "" bases.md`/ge' index.html > build/index.html
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v4
         with:
