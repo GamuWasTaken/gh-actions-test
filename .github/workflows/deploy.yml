@@ -22,7 +22,8 @@ jobs:
       - name: Compile
         run: |
           mkdir build
-          perl -pe 's/<!--bases.md-->/`./comrak --header-id-prefix "" bases.md`/ge' index.html > build/index.html
+          ./comrak --header-id-prefix "" -o bases.html bases.md
+          sed '/<!--bases.md-->/ { r bases.html d }' index.html > build/index.html
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v4
         with:
