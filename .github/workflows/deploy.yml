@@ -23,7 +23,7 @@ jobs:
         run: |
           mkdir build
           ./comrak --header-id-prefix "" -o bases.html bases.md
-          sed -e '/<!--bases.md-->/ { r bases.html' -e 'd' -e '}' index.html > build/index.html
+          sed -e '/<!--bases.md-->/ { r bases.html;d; }' index.html > build/index.html
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v4
         with:
